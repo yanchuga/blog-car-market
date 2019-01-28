@@ -1,0 +1,65 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+        <table class="table">
+            <thead>
+                <tr>
+              <th>View col</th>
+              <th>Edit col</th>
+              <th>Car id</th>
+			  <th>
+				<a href="{% url "cars_list" %}?order_by=first_name{% if request.GET.order_by == 'first_name' and request.GET.reverse != '1' %}&amp;reverse=1{% endif %}">
+				  Car Owner{% if request.GET.order_by == 'first_name' and request.GET.reverse != '1' %}&uarr;
+				  {% elif request.GET.order_by == 'first_name' and reverse == '1' %}&darr;
+				  {% endif %}</a></th>
+			  <th>
+				<a href="{% url "cars_list" %}?order_by=year{% if request.GET.order_by == 'year' and request.GET.reverse != '1' %}&amp;reverse=1{% endif %}">
+				  Car year{% if request.GET.order_by == 'year' and request.GET.reverse != '1' %}&uarr;
+				  {% elif request.GET.order_by == 'year' and reverse == '1' %}&darr;
+				  {% endif %}</a></th>
+			  <th>
+				<a href="{% url "cars_list" %}?order_by=price{% if request.GET.order_by == 'price' and request.GET.reverse != '1' %}&amp;reverse=1{% endif %}">
+				  Car price{% if request.GET.order_by == 'price' and request.GET.reverse != '1' %}&uarr;
+				  {% elif request.GET.order_by == 'price' and reverse == '1' %}&darr;
+				  {% endif %}</a></th>
+              <th>Delete col</th>
+            </tr>
+            </thead>
+          <tbody>
+    {% for car in cars %}
+            <tr>
+                <td><a href="{% url 'car_detail' pk=car.pk %}"><span class="glyphicon glyphicon-eye-open"> view </a></td></span></td>>
+                <td><a href="{% url 'car_edit' pk=car.pk %}"><span class="glyphicon glyphicon-pencil"> edit </span></a>
+                </td>>
+                <td>{{ car.pk }}</td>
+                <td>{{ car.first_name }}</td>
+                <td>{{ car.year }}</td>
+                <td>{{ car.price }}</td>
+                <td><a href="{% url 'car_del' pk=car.pk %}">Delete</a></td>>
+            </tr>
+        {% endfor %}
+          </tbody>
+            </table>
+{% if cars.has_other_pages %}
+  <ul class="pagination">
+    {% if cars.has_previous %}
+      <li><a href="?page={{ cars.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in cars.paginator.page_range %}
+      {% if cars.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if cars.has_next %}
+      <li><a href="?page={{ cars.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+{% endblock %}

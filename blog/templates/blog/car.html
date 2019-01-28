@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<table class="table">
+	<thead>
+		<tr>
+		  <th>Car id</th>
+		  <th>Car owner name</th>
+		  <th>Car year</th>
+		  <th>Car price</th>
+	</tr>
+	</thead>
+  <tbody>
+		<td>{{ car.pk }}</td>
+		<td>{{ car.first_name }}</td>
+		<td>{{ car.year }}</td>
+		<td>{{ car.price }}</td>
+  <tbody>
+  </table>
+{% endblock %}

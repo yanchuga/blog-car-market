@@ -1,0 +1,48 @@
+{% load static %}
+<html>
+    <head>
+        <title>Django Car market</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">		
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+       <div class="page-header">
+           <a href="{% url 'car_new' %}" class="top-menu">Add new car <span class="glyphicon glyphicon-plus"></span></a>
+
+        <h1><a href="/">Django Car market</a></h1>
+    </div>
+    <div class="content container">
+        <div class="row">
+        <h2>Filter the List</h2>
+      <div class="col-sm-2" id="group-selector">
+        <strong>From year</strong>
+        <select id="from_year" name="from_year">
+          <option value="">All Years</option>
+            {% for item in years %}
+                <option value="{{ item.year }}">{{ item.year }}</option>
+            {% endfor %}
+        </select>
+      </div>
+      <div class="col-sm-2" id="group-selector">
+        <strong>To year</strong>
+        <select id="to_year" name="to_year">
+          <option value="">All Years</option>
+            {% for item in years %}
+                <option value="{{ item.year }}">{{ item.year }}</option>
+            {% endfor %}
+        </select>
+      </div>
+      <div class="col-sm-2">
+	   <a id="filter_btn" href="{% url 'cars_list' %}" class="filter-btn">Filter <span class="glyphicon glyphicon-search"></span></a>
+    </div>
+    </div>
+        <div class="row">
+            {% block content %}
+            {% endblock %}
+        </div>
+        </div>
+   <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+   <script src="{% static 'js/script.js' %}"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    </body>
+</html>
